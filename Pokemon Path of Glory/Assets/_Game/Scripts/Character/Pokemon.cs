@@ -7,7 +7,7 @@ public class Pokemon
     [SerializeField] Pokemonbase _Base;
     [SerializeField] int level;
     [SerializeField] int statPoint;
-    private int addedPoints;
+    int addedPoints;
 
     public int Hp {get;set;}
     public List<Move> Moves{get;set;}

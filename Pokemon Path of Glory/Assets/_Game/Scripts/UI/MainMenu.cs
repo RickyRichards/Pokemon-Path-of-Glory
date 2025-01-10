@@ -23,6 +23,8 @@ public class MainMenu : MonoBehaviour{
         if(panel.activeInHierarchy == true){
             panel.SetActive(false);
             textMp.gameObject.SetActive(true);
+        }else if(!panel.activeInHierarchy){
+            textMp.gameObject.SetActive(true);
         }
         animator = GameObject.Find("Book").GetComponent<Animator>();
 
