@@ -6,6 +6,7 @@ Keys: n(Name only), p(Partial implement), x(fully implemented), xx(fully impleme
 - main menu buttons[p]
 - pause menu[]
 - combat system[]
+- player skills[]
 - player stats[]
 - player movement[p]
 - camera system[p]
@@ -19,9 +20,13 @@ Keys: n(Name only), p(Partial implement), x(fully implemented), xx(fully impleme
 - magic system for spell casters[]
 - animations for combat[]
 - animaitons in general[]
-- life styles[]
+- Background information[]
 - pokedex[]
-- class information[]
-- class abilites[]
+- class feature information[]
+- class feature abilites[]
+- edges[]
+- look into regex
+- change the skill seletion to onValuecahnge using listeners
+- look into IsnullorWhitespace
 */
 }
