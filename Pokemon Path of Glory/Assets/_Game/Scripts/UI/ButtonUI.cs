@@ -70,6 +70,18 @@ public class ButtonUI : MonoBehaviour
             case "Combat": c.combat = SkillRank.Apprentice; break;                
             case "Intimidate": c.intimidate = SkillRank.Apprentice; break;                
             case "Stealth": c.stealth = SkillRank.Apprentice; break;
+            case "Survival": c.survival = SkillRank.Apprentice; break;
+            case "Command": c.command = SkillRank.Apprentice; break;                
+            case "Charm": c.charm = SkillRank.Apprentice; break;                
+            case "Focus": c.focus = SkillRank.Apprentice; break;                
+            case "Intuition": c.intuition = SkillRank.Apprentice; break;
+            case "General Ed": c.generalEducation = SkillRank.Apprentice; break;
+            case "Medicine Ed": c.medicineEducatoin = SkillRank.Apprentice; break;                
+            case "Occult Ed": c.occultEducation = SkillRank.Apprentice; break;                
+            case "Pokemon Ed": c.pokemonEducation = SkillRank.Apprentice; break;                
+            case "Technology Ed": c.technologyEducation = SkillRank.Apprentice; break;
+            case "Guile": c.guile = SkillRank.Apprentice; break;
+            case "Perception": c.perception = SkillRank.Apprentice; break;
             default: break;                
         };
         switch (test2) {
@@ -78,6 +90,18 @@ public class ButtonUI : MonoBehaviour
             case "Combat": c.combat = SkillRank.Adept; break;                
             case "Intimidate": c.intimidate = SkillRank.Adept; break;                
             case "Stealth": c.stealth = SkillRank.Adept; break;
+            case "Survival": c.survival = SkillRank.Adept; break;
+            case "Command": c.command = SkillRank.Adept; break;                
+            case "Charm": c.charm = SkillRank.Adept; break;                
+            case "Focus": c.focus = SkillRank.Adept; break;                
+            case "Intuition": c.intuition = SkillRank.Adept; break;
+            case "General Ed": c.generalEducation = SkillRank.Adept; break;
+            case "Medicine Ed": c.medicineEducatoin = SkillRank.Adept; break;                
+            case "Occult Ed": c.occultEducation = SkillRank.Adept; break;                
+            case "Pokemon Ed": c.pokemonEducation = SkillRank.Adept; break;                
+            case "Technology Ed": c.technologyEducation = SkillRank.Adept; break;
+            case "Guile": c.guile = SkillRank.Adept; break;
+            case "Perception": c.perception = SkillRank.Adept; break;
             default: break;                
         };
         switch (test3) {
@@ -86,6 +110,18 @@ public class ButtonUI : MonoBehaviour
             case "Combat": c.combat = SkillRank.Untrained; break;                
             case "Intimidate": c.intimidate = SkillRank.Untrained; break;                
             case "Stealth": c.stealth = SkillRank.Untrained; break;
+            case "Survival": c.survival = SkillRank.Untrained; break;
+            case "Command": c.command = SkillRank.Untrained; break;                
+            case "Charm": c.charm = SkillRank.Untrained; break;                
+            case "Focus": c.focus = SkillRank.Untrained; break;                
+            case "Intuition": c.intuition = SkillRank.Untrained; break;
+            case "General Ed": c.generalEducation = SkillRank.Untrained; break;
+            case "Medicine Ed": c.medicineEducatoin = SkillRank.Untrained; break;                
+            case "Occult Ed": c.occultEducation = SkillRank.Untrained; break;                
+            case "Pokemon Ed": c.pokemonEducation = SkillRank.Untrained; break;                
+            case "Technology Ed": c.technologyEducation = SkillRank.Untrained; break;
+            case "Guile": c.guile = SkillRank.Untrained; break;
+            case "Perception": c.perception = SkillRank.Untrained; break;
             default: break;                
         };
         switch (test4) {
@@ -94,6 +130,18 @@ public class ButtonUI : MonoBehaviour
             case "Combat": c.combat = SkillRank.Untrained; break;                
             case "Intimidate": c.intimidate = SkillRank.Untrained; break;                
             case "Stealth": c.stealth = SkillRank.Untrained; break;
+            case "Survival": c.survival = SkillRank.Untrained; break;
+            case "Command": c.command = SkillRank.Untrained; break;                
+            case "Charm": c.charm = SkillRank.Untrained; break;                
+            case "Focus": c.focus = SkillRank.Untrained; break;                
+            case "Intuition": c.intuition = SkillRank.Untrained; break;
+            case "General Ed": c.generalEducation = SkillRank.Untrained; break;
+            case "Medicine Ed": c.medicineEducatoin = SkillRank.Untrained; break;                
+            case "Occult Ed": c.occultEducation = SkillRank.Untrained; break;                
+            case "Pokemon Ed": c.pokemonEducation = SkillRank.Untrained; break;                
+            case "Technology Ed": c.technologyEducation = SkillRank.Untrained; break;
+            case "Guile": c.guile = SkillRank.Untrained; break;
+            case "Perception": c.perception = SkillRank.Untrained; break;
             default: break;                
         };
         switch (test5) {
@@ -102,6 +150,18 @@ public class ButtonUI : MonoBehaviour
             case "Combat": c.combat = SkillRank.Untrained; break;                
             case "Intimidate": c.intimidate = SkillRank.Untrained; break;                
             case "Stealth": c.stealth = SkillRank.Untrained; break;
+            case "Survival": c.survival = SkillRank.Untrained; break;
+            case "Command": c.command = SkillRank.Untrained; break;                
+            case "Charm": c.charm = SkillRank.Untrained; break;                
+            case "Focus": c.focus = SkillRank.Untrained; break;                
+            case "Intuition": c.intuition = SkillRank.Untrained; break;
+            case "General Ed": c.generalEducation = SkillRank.Untrained; break;
+            case "Medicine Ed": c.medicineEducatoin = SkillRank.Untrained; break;                
+            case "Occult Ed": c.occultEducation = SkillRank.Untrained; break;                
+            case "Pokemon Ed": c.pokemonEducation = SkillRank.Untrained; break;                
+            case "Technology Ed": c.technologyEducation = SkillRank.Untrained; break;
+            case "Guile": c.guile = SkillRank.Untrained; break;
+            case "Perception": c.perception = SkillRank.Untrained; break;
             default: break;                
         };
     }
