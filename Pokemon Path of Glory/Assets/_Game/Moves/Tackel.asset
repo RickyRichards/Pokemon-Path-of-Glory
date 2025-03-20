@@ -10,19 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfed2148571d6c645b6b344e29890eaa, type: 3}
-  m_Name: ThunderShock
+  m_Name: Tackel
   m_EditorClassIdentifier: 
-  name: Thunder Shock
-  description: 'Range: 4, 1 Target
-
-    Effect: Thunder Shock Paralyzes the target
-    on 17+
-
-    Special: Grants Zapper'
-  type: 4
-  baseDamage: 4
-  ac: 2
-  fequency: At-Will
-  rollDamage: 8
-  numberOfRoll: 1
-  actDamage: 6
+  moveName: 
+  description: 
+  type: 0
+  category: 0
+  power: 0
+  accuracyCheck: 0
+  frequency: 
+  diceSides: 0
+  numberOfDice: 0

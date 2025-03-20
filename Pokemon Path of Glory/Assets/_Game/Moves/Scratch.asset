@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfed2148571d6c645b6b344e29890eaa, type: 3}
   m_Name: Scratch
   m_EditorClassIdentifier: 
-  name: Scratch
-  description: 'Range: Melee, Pass
-
-    Effect: None'
-  type: 1
-  baseDamage: 4
-  ac: 2
-  fequency: At-Will
-  rollDamage: 8
-  numberOfRoll: 1
-  actDamage: 6
+  moveName: 
+  description: 
+  type: 0
+  category: 0
+  power: 0
+  accuracyCheck: 0
+  frequency: 
+  diceSides: 0
+  numberOfDice: 0

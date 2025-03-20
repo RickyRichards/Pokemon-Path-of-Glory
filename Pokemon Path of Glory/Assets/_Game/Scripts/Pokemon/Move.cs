@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Move
 {
-    public Movebase Base{get;set;}
+    public MoveBase Base{get;set;}
 
-    public Move(Movebase _base){
+    public Move(MoveBase _base){
         Base = _base;
     }
 }

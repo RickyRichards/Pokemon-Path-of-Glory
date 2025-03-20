@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfed2148571d6c645b6b344e29890eaa, type: 3}
-  m_Name: Tackle
+  m_Name: Ember
   m_EditorClassIdentifier: 
-  name: Tackle
-  description: 'Range: Melee, 1 Target, Dash, Push
-
-    Effect: The target is pushed
-    2 Meters.'
-  type: 1
-  baseDamage: 5
-  ac: 2
-  fequency: At-Will
-  rollDamage: 8
-  numberOfRoll: 1
-  actDamage: 8
+  moveName: Ember
+  description: 
+  type: 2
+  category: 1
+  frequency: 
+  accuracyCheck: 0
+  damageBase: 0
+  range: 
+  effectText: 
+  specialEffect: 
+  contestType: 0
+  contestEffect: 

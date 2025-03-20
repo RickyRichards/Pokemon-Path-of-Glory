@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public enum EnergyTypes{
+public enum EnergyTypes
+{
     None,
     Normal,
     Fire,
     Water,
-    Eelctric,
+    Electric, // Fixed Typo
     Grass,
     Ice,
     Fighting,
