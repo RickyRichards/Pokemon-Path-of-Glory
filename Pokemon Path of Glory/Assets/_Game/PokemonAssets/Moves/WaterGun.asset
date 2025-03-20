@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfed2148571d6c645b6b344e29890eaa, type: 3}
   m_Name: WaterGun
   m_EditorClassIdentifier: 
-  moveName: 
+  moveName: Water Gun
   description: 
-  type: 0
-  category: 0
-  power: 0
-  accuracyCheck: 0
-  frequency: 
-  diceSides: 0
-  numberOfDice: 0
+  type: 3
+  category: 1
+  frequency: 0
+  accuracyCheck: 2
+  damageBase: 4
+  flatDamage: 11
+  moveRange: 4, 1 Target
+  effect: "None\t"
+  contestType: cute
+  contestEffect: Steady Performance
+  keywords:
+  - Grants Fountain

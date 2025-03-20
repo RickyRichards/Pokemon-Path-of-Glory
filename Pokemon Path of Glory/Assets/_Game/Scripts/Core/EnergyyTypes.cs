@@ -17,5 +17,8 @@ public enum EnergyTypes
     Bug,
     Rock,
     Ghost,
-    Dragon
+    Dragon,
+    Steel,
+    Dark,
+    Fairy
 }

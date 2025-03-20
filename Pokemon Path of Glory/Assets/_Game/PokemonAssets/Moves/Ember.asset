@@ -10,14 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfed2148571d6c645b6b344e29890eaa, type: 3}
-  m_Name: VineWhip
+  m_Name: Ember
   m_EditorClassIdentifier: 
-  moveName: 
+  moveName: Ember
   description: 
-  type: 0
-  category: 0
-  power: 0
-  accuracyCheck: 0
-  frequency: 
-  diceSides: 0
-  numberOfDice: 0
+  type: 2
+  category: 1
+  frequency: 0
+  accuracyCheck: 2
+  damageBase: 4
+  flatDamage: 11
+  moveRange: 4, 1 Target
+  effect: Ember Burns the target on 18+ accuracy
+  contestType: Beauty
+  contestEffect: Steady Performance
+  keywords:
+  - Grants Firestarter

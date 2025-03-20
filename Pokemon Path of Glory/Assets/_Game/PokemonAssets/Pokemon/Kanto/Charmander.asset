@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc5f7d499eb424498c6597ebfd4beb3, type: 3}
+  m_Name: Charmander
+  m_EditorClassIdentifier: 
+  speciesName: Charmander
+  pokedexEntry: 004
+  type1: 2
+  type2: 0
+  evolutionLevel: 15
+  evolvedForm: {fileID: 0}
+  baseHP: 4
+  baseATK: 5
+  baseSATK: 4
+  baseDEF: 6
+  baseSDEF: 5
+  baseSPD: 7
+  heightMeters: 0.6
+  weightKg: 8.5
+  diet: Herbivore
+  habitat: Cave, Mountain
+  basicAbilities:
+  - {fileID: 11400000, guid: 2464aadad520c314ca63fcf4aae4f07e, type: 2}
+  - {fileID: 11400000, guid: 8fa68a1d4426dd848a002d3f6ec56778, type: 2}
+  advancedAbilities:
+  - {fileID: 0}
+  - {fileID: 0}
+  highAbilities:
+  - {fileID: 0}
+  power: 2
+  overland: 5
+  swim: 3
+  burrow: 0
+  sky: 0
+  levitate: 0
+  teleporter: 0
+  jump:
+    horizontal: 1
+    vertical: 1
+  specialCapabilities:
+  - Firestarter
+  - Glow
+  - Underdog
+  naturewalkTypes:
+  - Mountain
+  athletics:
+    diceCount: 2
+    modifier: 2
+    isSet: 1
+  acrobatics:
+    diceCount: 3
+    modifier: 0
+    isSet: 1
+  combat:
+    diceCount: 2
+    modifier: 0
+    isSet: 1
+  stealth:
+    diceCount: 3
+    modifier: 0
+    isSet: 1
+  perception:
+    diceCount: 2
+    modifier: 0
+    isSet: 1
+  focus:
+    diceCount: 2
+    modifier: 0
+    isSet: 1
+  learnableMoves:
+  - moveBase: {fileID: 11400000, guid: f4968f2a1a74e0a4bb421d87300b29d2, type: 2}
+    level: 1
+  - moveBase: {fileID: 11400000, guid: a8f15f35c1c6bda45b12e7b5303c40e0, type: 2}
+    level: 3
+  - moveBase: {fileID: 11400000, guid: 615b4a0a275ddf447867d2d2c4f7b78c, type: 2}
+    level: 7
