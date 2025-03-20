@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SkillRank { Untrained, Novice, Adept, Apprentice, Expert, Master}
+//public enum SkillRank { Untrained, Novice, Adept, Apprentice, Expert, Master}
 
 public class Character : MonoBehaviour
 {
