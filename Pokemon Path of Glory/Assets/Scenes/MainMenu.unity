@@ -2205,7 +2205,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39523f5fa543fc845a5196fbd9acb53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  next: {fileID: 0}
+  back: {fileID: 0}
+  pages: {fileID: 0}
+  bgname: {fileID: 0}
+  bgdesc: {fileID: 0}
+  text: {fileID: 0}
   newGame: CharacterSetup
+  player: {fileID: 0}
+  playerimg: {fileID: 0}
+  apprentice: {fileID: 0}
+  adept: {fileID: 0}
+  untrained1: {fileID: 0}
+  untrained2: {fileID: 0}
+  untrained3: {fileID: 0}
+  field1: {fileID: 0}
+  field2: {fileID: 0}
+  field3: {fileID: 0}
+  field4: {fileID: 0}
+  field5: {fileID: 0}
+  fadeCanvas: {fileID: 0}
+  sprites: []
+  img: {fileID: 0}
+  Female: 0
 --- !u!1 &1711260010
 GameObject:
   m_ObjectHideFlags: 0

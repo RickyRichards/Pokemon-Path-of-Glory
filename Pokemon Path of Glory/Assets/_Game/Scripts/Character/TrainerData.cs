@@ -1,3 +1,4 @@
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class TrainerData : ScriptableObject
     public string trainerName;
     public int level = 1;
     public bool isFemale = true;
+    public List<string> selectedSkills = new List<string> { "None", "None", "None", "None", "None" }; // Default to "None"
+
 
     [Header("Health Stats")]
     public int maxHp = 10;
@@ -83,5 +86,11 @@ public class TrainerData : ScriptableObject
     {
         SkillRank chosenSkill = GetSkillByName(skillName);
         return SkillUtility.RollSkill(chosenSkill);
+    }
+
+    public void SetSkill(int index, string skill)
+    {
+        if (index >= 0 && index < selectedSkills.Count)
+            selectedSkills[index] = skill;
     }
 }

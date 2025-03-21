@@ -3964,7 +3964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &367944081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8555,6 +8555,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812101816}
   m_CullTransparentMesh: 1
+--- !u!1 &812464155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 812464157}
+  - component: {fileID: 812464156}
+  m_Layer: 0
+  m_Name: GM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &812464156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812464155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d7165b719018a146b4b0d71d95d0f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTrainer: {fileID: 0}
+  playerCharacter: {fileID: 1652469866732115346}
+--- !u!4 &812464157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812464155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.361908, y: 13.067376, z: 90.76478}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &814742341
 GameObject:
   m_ObjectHideFlags: 0
@@ -12039,6 +12085,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1204007287}
   - component: {fileID: 1204007286}
+  - component: {fileID: 1204007288}
   m_Layer: 0
   m_Name: ButtonManager
   m_TagString: Untagged
@@ -12077,6 +12124,7 @@ MonoBehaviour:
   field3: {fileID: 806920642}
   field4: {fileID: 184601204}
   field5: {fileID: 1623219887}
+  fadeCanvas: {fileID: 0}
   sprites: []
   img: {fileID: 437041884}
   Female: 0
@@ -12095,6 +12143,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1204007288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204007285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c259cdc3f3e0714ba37c70414488f4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillDropdowns:
+  - {fileID: 2025275175}
+  - {fileID: 920209967}
+  - {fileID: 806920642}
+  - {fileID: 184601204}
+  - {fileID: 1623219887}
 --- !u!1 &1204875823
 GameObject:
   m_ObjectHideFlags: 0
@@ -20995,3 +21061,4 @@ SceneRoots:
   - {fileID: 1204007287}
   - {fileID: 1454139076}
   - {fileID: 275328555}
+  - {fileID: 812464157}

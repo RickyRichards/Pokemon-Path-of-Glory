@@ -1134,7 +1134,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60.000004
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -1160,7 +1160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996202657}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2966126, y: 0.00000004025015, z: -0.000000012501285, w: 0.9549979}
+  m_LocalRotation: {x: 0.2966126, y: 0.000000020818137, z: -0.0000000064659007, w: 0.9549979}
   m_LocalPosition: {x: 0, y: 4, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1518,6 +1518,7 @@ GameObject:
   - component: {fileID: 1245390530}
   - component: {fileID: 1245390529}
   - component: {fileID: 1245390531}
+  - component: {fileID: 1245390532}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -1546,7 +1547,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 804419944}
   m_Follow: {fileID: 545540860}
   m_Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -1572,7 +1573,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245390528}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2966126, y: 0.00000004025015, z: -0.000000012501285, w: 0.9549979}
+  m_LocalRotation: {x: 0.2966126, y: 0.000000020818135, z: -0.0000000064659007, w: 0.9549979}
   m_LocalPosition: {x: 0, y: 4, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1592,10 +1593,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0089c262cdd8ce4790ca20347ca4ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orbital: {fileID: 0}
-  modifer: 10
-  orbvalue: 0
+  vCam: {fileID: 0}
+  rotationSpeed: 10
   isTurning: 0
+  zoomSpeed: 2
+  minZoom: 4
+  maxZoom: 10
+--- !u!114 &1245390532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245390528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 64
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0.15
+  m_CameraRadius: 0.1
+  m_Strategy: 0
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0.5
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!1 &1305614561
 GameObject:
   m_ObjectHideFlags: 0
