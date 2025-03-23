@@ -1,19 +1,15 @@
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SkillRank { Untrained, Novice, Adept, Apprentice, Expert, Master, Legenary, Virtuoso }
+public enum SkillRank { Untrained, Novice, Adept, Apprentice, Expert, Master, Legendary, Virtuoso }
 
-[CreateAssetMenu(fileName = "newTrainer", menuName = "Trainer/Create New Trainer")]
+[CreateAssetMenu(fileName = "NewTrainer", menuName = "Trainer/Create New Trainer")]
 public class TrainerData : ScriptableObject
 {
     [Header("Trainer Info")]
     public string trainerName;
     public int level = 1;
     public bool isFemale = true;
-    public List<string> selectedSkills = new List<string> { "None", "None", "None", "None", "None" }; // Default to "None"
-
 
     [Header("Health Stats")]
     public int maxHp = 10;
@@ -29,68 +25,134 @@ public class TrainerData : ScriptableObject
     [Header("Skills")]
     public SkillRank acrobatics = SkillRank.Novice;
     public SkillRank athletics = SkillRank.Novice;
-    public SkillRank combat = SkillRank.Novice;
-    public SkillRank intimidate = SkillRank.Novice;
-    public SkillRank stealth = SkillRank.Novice;
-    public SkillRank survival = SkillRank.Novice;
-    public SkillRank command = SkillRank.Novice;
     public SkillRank charm = SkillRank.Novice;
-    public SkillRank focus = SkillRank.Novice;
-    public SkillRank intuition = SkillRank.Novice;
+    public SkillRank combat = SkillRank.Novice;
+    public SkillRank command = SkillRank.Novice;
     public SkillRank generalEducation = SkillRank.Novice;
     public SkillRank medicineEducation = SkillRank.Novice;
     public SkillRank occultEducation = SkillRank.Novice;
     public SkillRank pokemonEducation = SkillRank.Novice;
     public SkillRank technologyEducation = SkillRank.Novice;
+    public SkillRank focus = SkillRank.Novice;
     public SkillRank guile = SkillRank.Novice;
+    public SkillRank intimidate = SkillRank.Novice;
+    public SkillRank intuition = SkillRank.Novice;
     public SkillRank perception = SkillRank.Novice;
+    public SkillRank stealth = SkillRank.Novice;
+    public SkillRank survival = SkillRank.Novice;
 
-    // [Header("Trainer’s Pokémon Team")]
-    // public List<PokemonData> pokemonTeam;
+    [Header("Selected Skills")] 
+    public List<string> selectedSkills = new List<string>(); // Keeps track of selected skills
 
-    public void Init()
+    public void ResetSkills()
     {
-        currentHp = maxHp;
+        acrobatics = SkillRank.Novice;
+        athletics = SkillRank.Novice;
+        combat = SkillRank.Novice;
+        intimidate = SkillRank.Novice;
+        stealth = SkillRank.Novice;
+        survival = SkillRank.Novice;
+        command = SkillRank.Novice;
+        charm = SkillRank.Novice;
+        focus = SkillRank.Novice;
+        intuition = SkillRank.Novice;
+        generalEducation = SkillRank.Novice;
+        medicineEducation = SkillRank.Novice;
+        occultEducation = SkillRank.Novice;
+        pokemonEducation = SkillRank.Novice;
+        technologyEducation = SkillRank.Novice;
+        guile = SkillRank.Novice;
+        perception = SkillRank.Novice;
+
+        selectedSkills.Clear();
     }
 
-    // Get a SkillRank dynamically by skill name
-    public SkillRank GetSkillByName(string skillName)
+    public void SetSkill(string skillName, SkillRank rank)
     {
-        switch (skillName.ToLower())
+        switch (skillName)
         {
-            case "acrobatics": return acrobatics;
-            case "athletics": return athletics;
-            case "combat": return combat;
-            case "intimidate": return intimidate;
-            case "stealth": return stealth;
-            case "survival": return survival;
-            case "command": return command;
-            case "charm": return charm;
-            case "focus": return focus;
-            case "intuition": return intuition;
-            case "generaleducation": return generalEducation;
-            case "medicineeducation": return medicineEducation;
-            case "occulteducation": return occultEducation;
-            case "pokemoneducation": return pokemonEducation;
-            case "technologyeducation": return technologyEducation;
-            case "guile": return guile;
-            case "perception": return perception;
-            default:
-                Debug.LogWarning($"Skill '{skillName}' not found!");
-                return SkillRank.Untrained; // Default to Untrained if not found
+            case "Acrobatics": acrobatics = rank; break;
+            case "Athletics": athletics = rank; break;
+            case "Combat": combat = rank; break;
+            case "Intimidate": intimidate = rank; break;
+            case "Stealth": stealth = rank; break;
+            case "Survival": survival = rank; break;
+            case "Command": command = rank; break;
+            case "Charm": charm = rank; break;
+            case "Focus": focus = rank; break;
+            case "Intuition": intuition = rank; break;
+            case "General Ed": generalEducation = rank; break;
+            case "Medicine Ed": medicineEducation = rank; break;
+            case "Occult Ed": occultEducation = rank; break;
+            case "Pokemon Ed": pokemonEducation = rank; break;
+            case "Technology Ed": technologyEducation = rank; break;
+            case "Guile": guile = rank; break;
+            case "Perception": perception = rank; break;
+            default: Debug.LogWarning($"Skill '{skillName}' not found!"); break;
+        }
+
+        if (!selectedSkills.Contains(skillName))
+        {
+            selectedSkills.Add(skillName);
         }
     }
 
-   // Roll a Trainer Skill Check based on a chosen skill name
-    public int RollTrainerSkill(string skillName)
+    public void DebugTrainerData()
     {
-        SkillRank chosenSkill = GetSkillByName(skillName);
-        return SkillUtility.RollSkill(chosenSkill);
+        Debug.Log($"Trainer Name: {trainerName}");
+        Debug.Log($"Level: {level}");
+        Debug.Log($"Max HP: {maxHp}");
+        Debug.Log($"Current HP: {currentHp}");
+        Debug.Log($"Skills: Acrobatics ({acrobatics}), Athletics ({athletics}), Combat ({combat})");
     }
 
-    public void SetSkill(int index, string skill)
+    public void TestLevelUp()
     {
-        if (index >= 0 && index < selectedSkills.Count)
-            selectedSkills[index] = skill;
+        level += 1;
+        maxHp += 5;
+        attack += 2;
+        Debug.Log($"Trainer Leveled Up! New Level: {level}, HP: {maxHp}, Attack: {attack}");
     }
+    public bool HasSkill(string skillName, out SkillRank rank)
+    {
+        Dictionary<string, SkillRank> skillLookup = new Dictionary<string, SkillRank>
+        {
+            { "Acrobatics", acrobatics },
+            { "Athletics", athletics },
+            { "Combat", combat },
+            { "Intimidate", intimidate },
+            { "Stealth", stealth },
+            { "Survival", survival },
+            { "Command", command },
+            { "Charm", charm },
+            { "Focus", focus },
+            { "Intuition", intuition },
+            { "General Ed", generalEducation },
+            { "Medicine Ed", medicineEducation },
+            { "Occult Ed", occultEducation },
+            { "Pokemon Ed", pokemonEducation },
+            { "Technology Ed", technologyEducation },
+            { "Guile", guile },
+            { "Perception", perception }
+        };
+
+        if (skillLookup.TryGetValue(skillName, out rank))
+        {
+            return true;
+        }
+
+        rank = SkillRank.Untrained; // Default if not found
+        return false;
+    }
+
+    public string GetAssignedSkills()
+    {
+        return $"Acrobatics: {acrobatics}, Athletics: {athletics}, Combat: {combat}, " +
+            $"Intimidate: {intimidate}, Stealth: {stealth}, Survival: {survival}, " +
+            $"Command: {command}, Charm: {charm}, Focus: {focus}, Intuition: {intuition}, " +
+            $"General Ed: {generalEducation}, Medicine Ed: {medicineEducation}, " +
+            $"Occult Ed: {occultEducation}, Pokemon Ed: {pokemonEducation}, " +
+            $"Technology Ed: {technologyEducation}, Guile: {guile}, Perception: {perception}";
+    }
+
 }

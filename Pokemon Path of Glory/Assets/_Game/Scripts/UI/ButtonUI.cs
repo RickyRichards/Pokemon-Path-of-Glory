@@ -9,171 +9,223 @@ using UnityEngine.UI;
 
 public class ButtonUI : MonoBehaviour
 {
+    [Header("Navigation Buttons")]
     [SerializeField] private Button next, back;
     [SerializeField] private GameObject pages;
+
+    [Header("Background Selection")]
     [SerializeField] private TMP_InputField bgname;
     [SerializeField] private TMP_InputField bgdesc;
     [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private string newGame = "Level";
-    [SerializeField] GameObject player;
-    [SerializeField] RawImage playerimg;
-    [SerializeField] TextMeshProUGUI apprentice, adept, untrained1, untrained2, untrained3 ;
 
+    [Header("Player References")]
+    [SerializeField] private GameObject player;
+    [SerializeField] private RawImage playerimg;
+    private bool Female = true;
+
+    [Header("Skill Selection")]
+    [SerializeField] private TextMeshProUGUI apprentice, adept, untrained1, untrained2, untrained3;
     [SerializeField] private TMP_Dropdown field1, field2, field3, field4, field5;
 
-    [SerializeField] private CanvasGroup fadeCanvas;
-    public Sprite[] sprites;
-    [SerializeField] Image img;
-    bool isMain;
-    Color a;
-    int num = 0;
-    [SerializeField] private bool Female;
+    [Header("UI Elements")]
+    [SerializeField] private Image img;
+    [SerializeField] private string newGameScene = "Level"; // Scene to load for new game
 
-    private void Awake() {
-        if(player != null){
-            if(SceneManager.GetActiveScene().name != "MainMenu"){
-                isMain = false;
-                if(!isMain)
-                    next.interactable = false;
-                if(img != null)
-                    img.color = new Color(255, 255, 255, 0);
-                if(pages !=null)
-                    pages.transform.GetChild(num).gameObject.SetActive(true);
-                player = GameObject.Find("Player");
-                if(player.transform.GetChild(0).gameObject.activeInHierarchy){
-                    Female = true;
-                }
-            }
-            else{
+    private TrainerData trainerData; // Reference to TrainerData
+    private int num = 0;
+    private bool isMain;
+
+    // ✅ Dictionary to Track Selected Skills & Corresponding Dropdowns
+    private Dictionary<TMP_Dropdown, string> selectedSkills = new Dictionary<TMP_Dropdown, string>();
+
+    private readonly List<string> skillNames = new List<string>
+    {
+        "Acrobatics", "Athletics", "Combat", "Intimidate", "Stealth", "Survival",
+        "Command", "Charm", "Focus", "Intuition", "General Ed", "Medicine Ed",
+        "Occult Ed", "Pokemon Ed", "Technology Ed", "Guile", "Perception"
+    };
+
+    private bool isUpdatingDropdowns = false; // Prevents infinite loop
+
+
+    private void Awake()
+    {
+        trainerData = GM.Instance?.trainerData;
+        if (trainerData == null)
+        {
+            Debug.LogError("TrainerData is NULL! Make sure it's assigned in the GameManager.");
+            return;
+        }
+
+        if (player != null && SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            isMain = false;
+            next.interactable = false;
+            if (img != null) img.color = new Color(1f, 1f, 1f, 0f);
+            pages.transform.GetChild(num).gameObject.SetActive(true);
+            player = GameObject.Find("Player");
+
+            // ✅ Determine Gender from Player Model
+            Female = player.transform.GetChild(0).gameObject.activeInHierarchy;
+        }
+    }
+
+    private void Start()
+    {
+        InitializeDropdowns();
+        RefreshDropdownOptions();
+    }
+
+    private void InitializeDropdowns()
+    {
+        field1.onValueChanged.AddListener(delegate { UpdateSelections(field1); });
+        field2.onValueChanged.AddListener(delegate { UpdateSelections(field2); });
+        field3.onValueChanged.AddListener(delegate { UpdateSelections(field3); });
+        field4.onValueChanged.AddListener(delegate { UpdateSelections(field4); });
+        field5.onValueChanged.AddListener(delegate { UpdateSelections(field5); });
+
+        // Initialize Selected Skills Dictionary
+        selectedSkills[field1] = "None";
+        selectedSkills[field2] = "None";
+        selectedSkills[field3] = "None";
+        selectedSkills[field4] = "None";
+        selectedSkills[field5] = "None";
+    }
+
+    private void UpdateSelections(TMP_Dropdown changedDropdown)
+    {
+        if (isUpdatingDropdowns) return; // Prevent infinite loop
+
+
+        string newSelection = changedDropdown.options[changedDropdown.value].text;
+
+        // Prevent selecting the same skill twice
+        foreach (var entry in selectedSkills)
+        {
+            if (entry.Key != changedDropdown && entry.Value == newSelection && newSelection != "None")
+            {
+                Debug.LogWarning($"Duplicate skill selection detected! Resetting {changedDropdown.name}");
+                changedDropdown.value = 0; // Reset to "None"
                 return;
             }
         }
+
+        // Update Dictionary with new selection
+        selectedSkills[changedDropdown] = newSelection;
+
+        // Refresh dropdown options for all dropdowns
+        RefreshDropdownOptions();
+        AssignSkills();
     }
 
-    public Character GetCharacter (){
-        return player.GetComponent<Character>();
-    }
-// 🛠️ Set Skill Based on Dropdown Selection
-    private void SetSkill(Character c, string skillName, SkillRank rank)
+    private void RefreshDropdownOptions()
     {
+        isUpdatingDropdowns = true; // Prevent recursive updates
+
+        HashSet<string> usedSkills = new HashSet<string>(selectedSkills.Values);
+        usedSkills.Remove("None"); // Keep "None" always available
+
+        foreach (var dropdown in selectedSkills.Keys)
+        {
+            List<string> availableOptions = new List<string> { "None" };
+            availableOptions.AddRange(skillNames.FindAll(skill => !usedSkills.Contains(skill) || selectedSkills[dropdown] == skill));
+
+            dropdown.ClearOptions();
+            dropdown.AddOptions(availableOptions);
+
+            // Keep previous selection if still valid
+            string previousSelection = selectedSkills[dropdown];
+            int newIndex = availableOptions.IndexOf(previousSelection);
+            dropdown.value = (newIndex >= 0) ? newIndex : 0;
+        }
+    }
+
+    private void AssignSkills()
+    {
+        if (trainerData == null)
+        {
+            Debug.LogError("TrainerData is NULL! Skills cannot be assigned.");
+            return;
+        }
+        trainerData.ResetSkills();
+
+        if (field1.value != 0) SetSkill(field1.options[field1.value].text, SkillRank.Apprentice);
+        if (field2.value != 0) SetSkill(field2.options[field2.value].text, SkillRank.Adept);
+        if (field3.value != 0) SetSkill(field3.options[field3.value].text, SkillRank.Untrained);
+        if (field4.value != 0) SetSkill(field4.options[field4.value].text, SkillRank.Untrained);
+        if (field5.value != 0) SetSkill(field5.options[field5.value].text, SkillRank.Untrained);
+        
+        Debug.Log($"Assigned Skills: {trainerData.GetAssignedSkills()}"); // Add this
+
+        FindObjectOfType<SkillSummaryUI>()?.UpdateSkillUI();
+
+    }
+
+    // ✅ Dictionary-Based Approach to Set Skills
+    private void SetSkill(string skillName, SkillRank rank)
+    {
+        if (trainerData == null) return;
+
         Dictionary<string, Action> skillSetters = new Dictionary<string, Action>
         {
-            { "Acrobatics", () => c.acrobatics = rank },
-            { "Athletics", () => c.athletics = rank },
-            { "Combat", () => c.combat = rank },
-            { "Intimidate", () => c.intimidate = rank },
-            { "Stealth", () => c.stealth = rank },
-            { "Survival", () => c.survival = rank },
-            { "Command", () => c.command = rank },
-            { "Charm", () => c.charm = rank },
-            { "Focus", () => c.focus = rank },
-            { "Intuition", () => c.intuition = rank },
-            { "General Ed", () => c.generalEducation = rank },
-            { "Medicine Ed", () => c.medicineEducatoin = rank },
-            { "Occult Ed", () => c.occultEducation = rank },
-            { "Pokemon Ed", () => c.pokemonEducation = rank },
-            { "Technology Ed", () => c.technologyEducation = rank },
-            { "Guile", () => c.guile = rank },
-            { "Perception", () => c.perception = rank }
+            { "Acrobatics", () => trainerData.acrobatics = rank },
+            { "Athletics", () => trainerData.athletics = rank },
+            { "Combat", () => trainerData.combat = rank },
+            { "Intimidate", () => trainerData.intimidate = rank },
+            { "Stealth", () => trainerData.stealth = rank },
+            { "Survival", () => trainerData.survival = rank },
+            { "Command", () => trainerData.command = rank },
+            { "Charm", () => trainerData.charm = rank },
+            { "Focus", () => trainerData.focus = rank },
+            { "Intuition", () => trainerData.intuition = rank },
+            { "General Ed", () => trainerData.generalEducation = rank },
+            { "Medicine Ed", () => trainerData.medicineEducation = rank },
+            { "Occult Ed", () => trainerData.occultEducation = rank },
+            { "Pokemon Ed", () => trainerData.pokemonEducation = rank },
+            { "Technology Ed", () => trainerData.technologyEducation = rank },
+            { "Guile", () => trainerData.guile = rank },
+            { "Perception", () => trainerData.perception = rank }
         };
-
         if (skillSetters.ContainsKey(skillName))
             skillSetters[skillName]();
+        else
+            Debug.LogWarning($"Skill '{skillName}' not found!");
     }
 
-    // 🛠️ Assign Skills from Dropdowns
-    public void AdjustStat()
+    public void Next()
     {
-        var c = GetCharacter();
-
-        c.Reset();
-        SetSkill(c, field1.options[field1.value].text, SkillRank.Apprentice);
-        SetSkill(c, field2.options[field2.value].text, SkillRank.Adept);
-        SetSkill(c, field3.options[field3.value].text, SkillRank.Untrained);
-        SetSkill(c, field4.options[field4.value].text, SkillRank.Untrained);
-        SetSkill(c, field5.options[field5.value].text, SkillRank.Untrained);
-    }
-
-    private void Update()
-    {
-        if (SceneManager.GetActiveScene().name != "MainMenu")
+        if (num == 4) // If moving to the summary page
         {
-            back.interactable = num > 0;
-            next.interactable = num < 17 && isMain;
-
-            // Enable 'Next' only if all required fields are filled
-            if (pages.transform.GetChild(num) == pages.transform.GetChild(4))
+            // Check if the name and description fields are filled
+            if (string.IsNullOrWhiteSpace(bgname.text) || string.IsNullOrWhiteSpace(bgdesc.text))
             {
-                next.interactable = !string.IsNullOrWhiteSpace(bgname.text)
-                                    && apprentice.text != "None"
-                                    && adept.text != "None"
-                                    && untrained1.text != "None"
-                                    && untrained2.text != "None"
-                                    && untrained3.text != "None";
+                Debug.LogWarning("You must enter a Background Name and Description before proceeding!");
+                return; // Stop execution
+            }
+            FindObjectOfType<SkillSummaryUI>()?.UpdateSkillUI(); // Refresh UI
+            AssignSkills(); // Ensure skills are saved before loading summary
+            
+            // Check if all dropdowns are set to something other than "None"
+            if (field1.value == 0 || field2.value == 0 || field3.value == 0 || field4.value == 0 || field5.value == 0)
+            {
+                Debug.LogWarning("All skill selections must be chosen before proceeding!");
+                return; // Stop execution
             }
         }
-    }
-    
-    public void OnCharacterChange()
-    {
-        if (GM.Instance != null)
-        {
-            GM.Instance.SaveGame();
-            Debug.Log("Character Auto-Saved!");
-        }
-    }
-
-
-    public void NewGameButton(){
-        StartCoroutine(FadeToScene(newGame));
-    }
-    
-    private IEnumerator FadeToScene(string sceneName)
-    {
-        fadeCanvas.gameObject.SetActive(true); // Enable fade UI
-        float fadeDuration = 1.5f;
-        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
-        {
-            fadeCanvas.alpha = t / fadeDuration;
-            yield return null;
-        }
-        SceneManager.LoadScene(sceneName);
-    }
-
-    public void MainStory(){
-        if(pages.transform.GetChild(num) == pages.transform.GetChild(0)){
-            isMain = true;
-            if(next.interactable == false)
-                next.interactable = true;
-            img.color = new Color(255, 255, 255, 255);
-            text.text = "create your own journey filled with quests and advednture, defeate gym leaders, solve mysteries, battle evil teams and find what awaits you at the end";
-        }
-    }
-
-    public void Next(){
         pages.transform.GetChild(num).gameObject.SetActive(false);
-        num ++;
+        num++;
         pages.transform.GetChild(num).gameObject.SetActive(true);
-        if(pages.transform.GetChild(num) == pages.transform.GetChild(4)){
-            if(String.IsNullOrWhiteSpace(bgname.text)){
-                bgname.text = "";
-            }
-        }
-        if(playerimg.gameObject.activeInHierarchy == false && num == 8){playerimg.gameObject.SetActive(true);}
-        else if(playerimg.gameObject.activeInHierarchy == true && num != 8){playerimg.gameObject.SetActive(false);}
-        if(num == 17){return;}
-        
     }
 
-    public void Back(){
+    public void Back()
+    {
         pages.transform.GetChild(num).gameObject.SetActive(false);
-        num --;
+        num--;
         pages.transform.GetChild(num).gameObject.SetActive(true);
-        if(playerimg.gameObject.activeInHierarchy == false && num == 8){playerimg.gameObject.SetActive(true);}
-        else if(playerimg.gameObject.activeInHierarchy == true && num != 8){playerimg.gameObject.SetActive(false);}
     }
 
-   public void GenderSelect()
+    // ✅ **Gender Selection**
+    public void GenderSelect()
     {
         string tag = EventSystem.current.currentSelectedGameObject.tag;
 
@@ -183,6 +235,7 @@ public class ButtonUI : MonoBehaviour
             {
                 player.transform.GetChild(1).gameObject.SetActive(false);
                 player.transform.GetChild(0).gameObject.SetActive(true);
+                Female = true;
             }
         }
         else if (tag == "MaleB")
@@ -191,7 +244,21 @@ public class ButtonUI : MonoBehaviour
             {
                 player.transform.GetChild(0).gameObject.SetActive(false);
                 player.transform.GetChild(1).gameObject.SetActive(true);
+                Female = false;
             }
         }
+    }
+
+    public void MainStory()
+    {
+        isMain = true;
+        next.interactable = true;
+        img.color = Color.white;
+        text.text = "Create your own journey filled with quests and adventure. Defeat gym leaders, solve mysteries, battle evil teams, and discover what awaits you at the end.";
+    }
+
+    public void NewGameButton()
+    {
+        SceneManager.LoadScene(newGameScene);
     }
 }

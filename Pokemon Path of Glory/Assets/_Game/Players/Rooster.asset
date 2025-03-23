@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a638b05d0a6fff428b0c8333148e824, type: 3}
+  m_Name: Rooster
+  m_EditorClassIdentifier: 
+  trainerName: 
+  level: 1
+  isFemale: 1
+  maxHp: 10
+  currentHp: 0
+  attack: 5
+  defense: 5
+  spAttack: 5
+  spDefense: 5
+  speed: 5
+  acrobatics: 1
+  athletics: 1
+  charm: 1
+  combat: 1
+  command: 1
+  generalEducation: 1
+  medicineEducation: 1
+  occultEducation: 1
+  pokemonEducation: 1
+  technologyEducation: 1
+  focus: 1
+  guile: 1
+  intimidate: 1
+  intuition: 1
+  perception: 1
+  stealth: 1
+  survival: 1
+  selectedSkills: []

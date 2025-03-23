@@ -2224,7 +2224,6 @@ MonoBehaviour:
   field3: {fileID: 0}
   field4: {fileID: 0}
   field5: {fileID: 0}
-  fadeCanvas: {fileID: 0}
   sprites: []
   img: {fileID: 0}
   Female: 0

@@ -1,15 +1,10 @@
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using System.IO;
 
 public class GM : MonoBehaviour
 {
-    public static GM Instance { get; private set; }
-
-    public TrainerData PlayerTrainer;
-    public List<PokemonData> PlayerPokemonTeam = new List<PokemonData>(); // Player's Pokémon
-
-    private string savePath;
+    public static GM Instance;
+    public TrainerData trainerData; // Assign in Inspector
 
     private void Awake()
     {
@@ -17,7 +12,6 @@ public class GM : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            savePath = Application.persistentDataPath + "/saveData.json";
         }
         else
         {
@@ -25,52 +19,49 @@ public class GM : MonoBehaviour
         }
     }
 
+    void Start(){
+        if (trainerData != null)
+        {
+            trainerData.DebugTrainerData();
+        }
+        else
+        {
+            Debug.LogError("TrainerData is NULL!");
+        }
+    }
+
     public void SaveGame()
     {
-        SaveData data = new SaveData
-        {
-            trainerData = JsonUtility.ToJson(PlayerTrainer),
-            playerPokemon = new List<string>()
-        };
-
-        foreach (var pokemon in PlayerPokemonTeam)
-        {
-            data.playerPokemon.Add(JsonUtility.ToJson(pokemon));
-        }
-
-        File.WriteAllText(savePath, JsonUtility.ToJson(data));
+        string path = Application.persistentDataPath + "/savefile.json";
+        string json = JsonUtility.ToJson(trainerData);
+        File.WriteAllText(path, json);
         Debug.Log("Game Saved!");
     }
 
     public void LoadGame()
     {
-        if (File.Exists(savePath))
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
         {
-            string json = File.ReadAllText(savePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-            JsonUtility.FromJsonOverwrite(data.trainerData, PlayerTrainer);
-            PlayerPokemonTeam.Clear();
-
-            foreach (var pokemonJson in data.playerPokemon)
-            {
-                PokemonData newPokemon = new PokemonData();
-                JsonUtility.FromJsonOverwrite(pokemonJson, newPokemon);
-                PlayerPokemonTeam.Add(newPokemon);
-            }
-
+            string json = File.ReadAllText(path);
+            JsonUtility.FromJsonOverwrite(json, trainerData);
             Debug.Log("Game Loaded!");
         }
         else
         {
-            Debug.LogWarning("No save file found!");
+            Debug.Log("No save file found.");
         }
     }
-}
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L)) // Press "L" to level up
+        {
+            if (trainerData != null)
+            {
+                trainerData.TestLevelUp();
+                SaveGame();
+            }
+        }
+    }
 
-[System.Serializable]
-public class SaveData
-{
-    public string trainerData;
-    public List<string> playerPokemon;
 }

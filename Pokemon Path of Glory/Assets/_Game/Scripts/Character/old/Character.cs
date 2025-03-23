@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
     [field: SerializeField] public SkillRank focus { get; set; } = SkillRank.Novice;
     [field: SerializeField] public SkillRank intuition { get; set; } = SkillRank.Novice;
     [field: SerializeField] public SkillRank generalEducation { get; set; } = SkillRank.Novice;
-    [field: SerializeField] public SkillRank medicineEducatoin { get; set; } = SkillRank.Novice;
+    [field: SerializeField] public SkillRank medicineEducation  { get; set; } = SkillRank.Novice;
     [field: SerializeField] public SkillRank occultEducation { get; set; } = SkillRank.Novice;
     [field: SerializeField] public SkillRank pokemonEducation { get; set; } = SkillRank.Novice;
     [field: SerializeField] public SkillRank technologyEducation { get; set; } = SkillRank.Novice;
@@ -60,7 +60,7 @@ public class Character : MonoBehaviour
     public int Focus => ( (int) focus ) + 1;
     public int Intuition => ( (int) intuition ) + 1;
     public int GeneralEducation => ( (int) generalEducation ) + 1;
-    public int MedicineEducatoin => ( (int) medicineEducatoin ) + 1;
+    public int MedicineEducation  => ( (int) medicineEducation  ) + 1;
     public int OccultEducation => ( (int) occultEducation ) + 1;
     public int PokemonEducation => ( (int) pokemonEducation ) + 1;
     public int TechnologyEducation => ( (int) technologyEducation ) + 1;

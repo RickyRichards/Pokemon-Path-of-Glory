@@ -11,7 +11,7 @@ public static class SkillUtility
             case SkillRank.Apprentice: return 4;
             case SkillRank.Expert: return 5;
             case SkillRank.Master: return 6;
-            case SkillRank.Legenary: return 7;
+            case SkillRank.Legendary: return 7;
             case SkillRank.Virtuoso: return 8;
             default: return 1;
         }
