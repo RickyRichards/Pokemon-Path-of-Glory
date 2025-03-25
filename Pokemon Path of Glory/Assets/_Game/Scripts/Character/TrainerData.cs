@@ -3,6 +3,8 @@ using UnityEngine;
 
 public enum SkillRank { Untrained, Novice, Adept, Apprentice, Expert, Master, Legendary, Virtuoso }
 
+public enum StatType{ HP, Attack, Defense, SpAttack, SpDefense, Speed}
+
 [CreateAssetMenu(fileName = "NewTrainer", menuName = "Trainer/Create New Trainer")]
 public class TrainerData : ScriptableObject
 {
@@ -12,10 +14,13 @@ public class TrainerData : ScriptableObject
     public bool isFemale = true;
 
     [Header("Health Stats")]
-    public int maxHp = 10;
     public int currentHp;
 
+    [Header("Stat Allocation")]
+    public int availableStatPoints = 10; // default points to distribute
+
     [Header("Base Stats")]
+    public int maxHp = 10;
     public int attack = 5;
     public int defense = 5;
     public int spAttack = 5;
@@ -43,6 +48,60 @@ public class TrainerData : ScriptableObject
 
     [Header("Selected Skills")] 
     public List<string> selectedSkills = new List<string>(); // Keeps track of selected skills
+
+        public void AllocateStat(StatType stat)
+    {
+        if (availableStatPoints <= 0) return;
+
+        switch (stat)
+        {
+            case StatType.HP:
+                if (maxHp < 15) { maxHp++; availableStatPoints--; }
+                break;
+            case StatType.Attack:
+                if (attack < 10) { attack++; availableStatPoints--; }
+                break;
+            case StatType.Defense:
+                if (defense < 10) { defense++; availableStatPoints--; }
+                break;
+            case StatType.SpAttack:
+                if (spAttack < 10) { spAttack++; availableStatPoints--; }
+                break;
+            case StatType.SpDefense:
+                if (spDefense < 10) { spDefense++; availableStatPoints--; }
+                break;
+            case StatType.Speed:
+                if (speed < 10) { speed++; availableStatPoints--; }
+                break;
+        }
+    }
+
+    public void RemoveStat(StatType stat)
+    {
+        switch (stat)
+        {
+            case StatType.HP:
+                if (maxHp > 10) { maxHp--; availableStatPoints++; }
+                break;
+            case StatType.Attack:
+                if (attack > 5) { attack--; availableStatPoints++; }
+                break;
+            case StatType.Defense:
+                if (defense > 5) { defense--; availableStatPoints++; }
+                break;
+            case StatType.SpAttack:
+                if (spAttack > 5) { spAttack--; availableStatPoints++; }
+                break;
+            case StatType.SpDefense:
+                if (spDefense > 5) { spDefense--; availableStatPoints++; }
+                break;
+            case StatType.Speed:
+                if (speed > 5) { speed--; availableStatPoints++; }
+                break;
+        }
+    }
+
+
 
     public void ResetSkills()
     {
@@ -154,5 +213,7 @@ public class TrainerData : ScriptableObject
             $"Occult Ed: {occultEducation}, Pokemon Ed: {pokemonEducation}, " +
             $"Technology Ed: {technologyEducation}, Guile: {guile}, Perception: {perception}";
     }
+
+
 
 }
