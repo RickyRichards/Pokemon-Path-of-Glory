@@ -72,8 +72,25 @@ public class ButtonUI : MonoBehaviour
 
     private void Start()
     {
+        next.interactable = false;
         InitializeDropdowns();
         RefreshDropdownOptions();
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            // Disable Next button if race isn't selected or +1 modifier isn't set
+            if (pages.transform.GetChild(num).name == "RaceSelection")
+            {
+                next.interactable = FindObjectOfType<RaceSelectionUI>()?.isRaceSelected == true && !string.IsNullOrEmpty(FindObjectOfType<RaceSelectionUI>()?.selectedSkillForPlusOne);
+            }
+            else
+            {
+              //  next.interactable = true;  // Enable Next for all other pages
+            }
+        }
     }
 
     private void InitializeDropdowns()
@@ -194,7 +211,7 @@ public class ButtonUI : MonoBehaviour
 
     public void Next()
     {
-        if (num == 4) // If moving to the summary page
+        if (pages.transform.GetChild(num).name == "Background") // If moving to the summary page
         {
             // Check if the name and description fields are filled
             if (string.IsNullOrWhiteSpace(bgname.text) || string.IsNullOrWhiteSpace(bgdesc.text))
@@ -211,6 +228,15 @@ public class ButtonUI : MonoBehaviour
                 Debug.LogWarning("All skill selections must be chosen before proceeding!");
                 return; // Stop execution
             }
+        }
+
+        // If the player is on the Race Selection page
+        if (pages.transform.GetChild(num).name == "Race")
+        {
+            Debug.Log("Calling ConfirmRaceSelection from Next()");
+            FindObjectOfType<RaceSelectionUI>()?.ConfirmRaceSelection();
+            if(FindObjectOfType<RaceSelectionUI>().isRaceSelected == false) return;
+
         }
         pages.transform.GetChild(num).gameObject.SetActive(false);
         num++;

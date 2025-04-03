@@ -45,6 +45,24 @@ public class TrainerData : ScriptableObject
     public SkillRank perception = SkillRank.Novice;
     public SkillRank stealth = SkillRank.Novice;
     public SkillRank survival = SkillRank.Novice;
+    // Skill Modifiers from Race and other sources
+    public int acrobaticsBonus;
+    public int athleticsBonus;
+    public int charmBonus;
+    public int combatBonus;
+    public int commandBonus;
+    public int generalEdBonus;
+    public int medicineEdBonus;
+    public int occultEdBonus;
+    public int pokemonEdBonus;
+    public int techEdBonus;
+    public int focusBonus;
+    public int guileBonus;
+    public int intimidateBonus;
+    public int intuitionBonus;
+    public int perceptionBonus;
+    public int stealthBonus;
+    public int survivalBonus;
 
     [Header("Selected Skills")] 
     public List<string> selectedSkills = new List<string>(); // Keeps track of selected skills
@@ -101,7 +119,26 @@ public class TrainerData : ScriptableObject
         }
     }
 
-
+    public void ResetBonuses()
+    {
+        acrobaticsBonus = 0;
+        athleticsBonus = 0;
+        charmBonus = 0;
+        combatBonus = 0;
+        commandBonus = 0;
+        techEdBonus = 0;
+        stealthBonus = 0;
+        intuitionBonus = 0;
+        perceptionBonus = 0;
+        pokemonEdBonus = 0;
+        intimidateBonus = 0;
+        focusBonus = 0;
+        generalEdBonus = 0;
+        medicineEdBonus = 0;
+        occultEdBonus = 0;
+        guileBonus = 0;
+        survivalBonus = 0;
+    }
 
     public void ResetSkills()
     {

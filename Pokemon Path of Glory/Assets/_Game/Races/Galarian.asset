@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8384e165a320794ebcb65b89e62c56e, type: 3}
+  m_Name: Galarian
+  m_EditorClassIdentifier: 
+  raceName: Galarian
+  description: 
+  acrobaticsModifier: 0
+  athleticsModifier: 0
+  charmModifier: 0
+  combatModifier: 0
+  commandModifier: 0
+  generalEdModifier: 0
+  medicineEdModifier: 0
+  occultEdModifier: 0
+  pokemonEdModifier: 0
+  techEdModifier: 2
+  focusModifier: 0
+  guileModifier: 0
+  intimidateModifier: 0
+  intuitionModifier: 0
+  perceptionModifier: 0
+  stealthModifier: 0
+  survivalModifier: 0
+  skillForPlusOneOption1: Charm
+  skillForPlusOneOption2: Stealth
