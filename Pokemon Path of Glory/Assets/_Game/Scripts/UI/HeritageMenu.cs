@@ -1,74 +1,175 @@
-using UnityEngine.UI;
 using UnityEngine;
-using DG.Tweening;
-using System.Collections.Generic;
+using DG.Tweening; // For smooth animations
+
 public class HeritageMenu : MonoBehaviour
 {
-    [Header("Aspect Options")]
-     public GameObject nobleSubOptions; // Assign the Panel containing sub-options
-    public GameObject merchantSubOptions; // Assign the Panel containing sub-options
-    public GameObject nomadicSubOptions; // Assign the Panel containing sub-options
-    public GameObject exileSubOptions; // Assign the Panel containing sub-options
-    public GameObject scholarySubOptions; // Assign the Panel containing sub-options
-    public GameObject occultSubOptions; // Assign the Panel containing sub-options
+    [Header("Sub-Option Panels")]
+    public GameObject nobleSubOptions;  // Panel containing noble sub-options
+    public GameObject merchantSubOptions;  // Panel containing merchant sub-options
+    public GameObject nomadicSubOptions;  // Panel containing nomadic sub-options
+    public GameObject exileSubOptions;  // Panel containing exile sub-options
+    public GameObject scholarySubOptions;  // Panel containing scholarly sub-options
+    public GameObject occultSubOptions;  // Panel containing occult sub-options
 
-    public RectTransform mainPanelRectTransform;  // Assign the RectTransform of the main panel with buttons
+    [Header("Main Buttons (Category Buttons)")]
+    public GameObject nobleButton;    // The Noble category button
+    public GameObject merchantButton; // The Merchant category button
+    public GameObject nomadicButton;  // The Nomadic category button
+    public GameObject exileButton;    // The Exile category button
+    public GameObject scholaryButton; // The Scholary category button
+    public GameObject occultButton;   // The Occult category button
+
+    private RectTransform nobleButtonRect;
+    private RectTransform merchantButtonRect;
+    private RectTransform nomadicButtonRect;
+    private RectTransform exileButtonRect;
+    private RectTransform scholaryButtonRect;
+    private RectTransform occultButtonRect;
+
+    private void Start()
+    {
+        // Cache the RectTransform of each button
+        nobleButtonRect = nobleButton.GetComponent<RectTransform>();
+        merchantButtonRect = merchantButton.GetComponent<RectTransform>();
+        nomadicButtonRect = nomadicButton.GetComponent<RectTransform>();
+        exileButtonRect = exileButton.GetComponent<RectTransform>();
+        scholaryButtonRect = scholaryButton.GetComponent<RectTransform>();
+        occultButtonRect = occultButton.GetComponent<RectTransform>();
+    }
 
     public void ToggleNobleOptions()
     {
-        ToggleSubOptions(nobleSubOptions);
+        ToggleSubOptions(nobleSubOptions, nobleButtonRect, nobleButton);
     }
+
     public void ToggleMerchantOptions()
     {
-        ToggleSubOptions(merchantSubOptions);
+        ToggleSubOptions(merchantSubOptions, merchantButtonRect, merchantButton);
     }
+
     public void ToggleNomadicOptions()
     {
-        ToggleSubOptions(nomadicSubOptions);
+        ToggleSubOptions(nomadicSubOptions, nomadicButtonRect, nomadicButton);
     }
+
     public void ToggleExileOptions()
     {
-        ToggleSubOptions(exileSubOptions);
+        ToggleSubOptions(exileSubOptions, exileButtonRect, exileButton);
     }
+
     public void ToggleScholarOptions()
     {
-        ToggleSubOptions(scholarySubOptions);
+        ToggleSubOptions(scholarySubOptions, scholaryButtonRect, scholaryButton);
     }
+
     public void ToggleOccultOptions()
     {
-        ToggleSubOptions(occultSubOptions);
+        ToggleSubOptions(occultSubOptions, occultButtonRect, occultButton);
     }
-     private void ToggleSubOptions(GameObject subOptionsPanel)
+
+    // Toggle the visibility of the sub-option and move the inactive buttons down or up
+    private void ToggleSubOptions(GameObject subOptionsPanel, RectTransform buttonRect, GameObject button)
     {
-        // Toggle the visibility of the sub-panel
         bool isActive = subOptionsPanel.activeSelf;
         subOptionsPanel.SetActive(!isActive);
 
-        // Animate the main panel's size to fit new content
-        AdjustMainPanelSize();
+        // Move inactive buttons down when the sub-options are shown
+        // Move inactive buttons back up when the sub-options are hidden
+        if (!isActive) 
+        {
+            MoveInactiveButtons(button, subOptionsPanel); // Move down when turning on
+        }
+        else
+        {
+            MoveInactiveButtonsBack(button, subOptionsPanel); // Move back up when turning off
+        }
     }
 
-    
-    private void AdjustMainPanelSize()
+    // Move the inactive buttons down based on the size of the sub-options panel
+    private void MoveInactiveButtons(GameObject activeButton, GameObject activeSubPanel)
     {
-        // Animate the resize of the main panel content dynamically
-        // You can adjust the height/width according to the total content
-        mainPanelRectTransform.DOSizeDelta(new Vector2(mainPanelRectTransform.sizeDelta.x, CalculatePanelHeight()), 0.5f).SetEase(Ease.OutQuad);
+        // Calculate the height of the active sub-options panel
+        float subPanelHeight = activeSubPanel.GetComponent<RectTransform>().rect.height;
+
+        // Use this height to determine how much to move the inactive buttons down
+        float moveAmount = subPanelHeight;
+
+        float animationDuration = 0.5f; // Time for the animation
+
+        // Move the buttons that are **below** the currently active one (not the button clicked)
+        if (activeButton == nobleButton)
+        {
+            merchantButtonRect.DOAnchorPosY(merchantButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            nomadicButtonRect.DOAnchorPosY(nomadicButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            exileButtonRect.DOAnchorPosY(exileButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            scholaryButtonRect.DOAnchorPosY(scholaryButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
+        else if (activeButton == merchantButton)
+        {
+            nomadicButtonRect.DOAnchorPosY(nomadicButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            exileButtonRect.DOAnchorPosY(exileButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            scholaryButtonRect.DOAnchorPosY(scholaryButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
+        else if (activeButton == nomadicButton)
+        {
+            exileButtonRect.DOAnchorPosY(exileButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            scholaryButtonRect.DOAnchorPosY(scholaryButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
+        else if (activeButton == exileButton)
+        {
+            scholaryButtonRect.DOAnchorPosY(scholaryButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
+        else if (activeButton == scholaryButton)
+        {
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y - moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
     }
 
-    private float CalculatePanelHeight()
+    // Move the inactive buttons back up after hiding the sub-options panel
+    private void MoveInactiveButtonsBack(GameObject activeButton, GameObject activeSubPanel)
     {
-        // Calculate the total height of all active sub-panels (this can be based on the active children or any other logic)
-        float height = 0;
-        
-        // Add height of all visible sub-panels (or calculate based on your layout)
-        if (nobleSubOptions.activeSelf) height += nobleSubOptions.GetComponent<RectTransform>().sizeDelta.y;
-        if (merchantSubOptions.activeSelf) height += merchantSubOptions.GetComponent<RectTransform>().sizeDelta.y;
-        if (nomadicSubOptions.activeSelf) height += nomadicSubOptions.GetComponent<RectTransform>().sizeDelta.y;
-        if (exileSubOptions.activeSelf) height += exileSubOptions.GetComponent<RectTransform>().sizeDelta.y;
-        if (scholarySubOptions.activeSelf) height += scholarySubOptions.GetComponent<RectTransform>().sizeDelta.y;
-        if (occultSubOptions.activeSelf) height += occultSubOptions.GetComponent<RectTransform>().sizeDelta.y;
+        // Calculate the height of the active sub-options panel
+        float subPanelHeight = activeSubPanel.GetComponent<RectTransform>().rect.height;
 
-        return height;
+        // Use this height to determine how much to move the inactive buttons back up
+        float moveAmount = subPanelHeight;
+
+        float animationDuration = 0.5f; // Time for the animation
+
+        // Move the buttons that are **below** the currently active one (not the button clicked)
+        if (activeButton == nobleButton)
+        {
+            merchantButtonRect.DOAnchorPosY(merchantButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            nomadicButtonRect.DOAnchorPosY(nomadicButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            exileButtonRect.DOAnchorPosY(exileButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            scholaryButtonRect.DOAnchorPosY(scholaryButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
+        else if (activeButton == merchantButton)
+        {
+            nomadicButtonRect.DOAnchorPosY(nomadicButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            exileButtonRect.DOAnchorPosY(exileButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            scholaryButtonRect.DOAnchorPosY(scholaryButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
+        else if (activeButton == nomadicButton)
+        {
+            exileButtonRect.DOAnchorPosY(exileButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            scholaryButtonRect.DOAnchorPosY(scholaryButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
+        else if (activeButton == exileButton)
+        {
+            scholaryButtonRect.DOAnchorPosY(scholaryButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
+        else if (activeButton == scholaryButton)
+        {
+            occultButtonRect.DOAnchorPosY(occultButtonRect.anchoredPosition.y + moveAmount, animationDuration).SetEase(Ease.OutQuad);
+        }
     }
 }
