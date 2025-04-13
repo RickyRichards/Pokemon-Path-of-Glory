@@ -50,15 +50,14 @@ public class ButtonUI : MonoBehaviour
 
     private void Awake()
     {
-        trainerData = GM.Instance?.trainerData;
-        if (trainerData == null)
-        {
-            Debug.LogError("TrainerData is NULL! Make sure it's assigned in the GameManager.");
-            return;
-        }
-
         if (player != null && SceneManager.GetActiveScene().name != "MainMenu")
         {
+            trainerData = GM.Instance?.trainerData;
+            if (trainerData == null)
+            {
+                Debug.LogError("TrainerData is NULL! Make sure it's assigned in the GameManager.");
+                return;
+            }
             isMain = false;
             next.interactable = false;
             if (img != null) img.color = new Color(1f, 1f, 1f, 0f);
@@ -72,9 +71,11 @@ public class ButtonUI : MonoBehaviour
 
     private void Start()
     {
-        next.interactable = false;
-        InitializeDropdowns();
-        RefreshDropdownOptions();
+        if(SceneManager.GetActiveScene().name != "MainMenu"){
+            next.interactable = false;
+            InitializeDropdowns();
+            RefreshDropdownOptions();
+        }
     }
 
     private void Update()
@@ -90,7 +91,11 @@ public class ButtonUI : MonoBehaviour
             {
               //  next.interactable = true;  // Enable Next for all other pages
             }
+            if(pages.transform.GetChild(num).name == "Summary"){
+                next.interactable = false;
         }
+        }
+
     }
 
     private void InitializeDropdowns()

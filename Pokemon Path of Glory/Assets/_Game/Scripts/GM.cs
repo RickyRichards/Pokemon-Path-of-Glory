@@ -19,17 +19,6 @@ public class GM : MonoBehaviour
         }
     }
 
-    void Start(){
-        if (trainerData != null)
-        {
-            trainerData.DebugTrainerData();
-        }
-        else
-        {
-            Debug.LogError("TrainerData is NULL!");
-        }
-    }
-
     public void SaveGame()
     {
         string path = Application.persistentDataPath + "/savefile.json";

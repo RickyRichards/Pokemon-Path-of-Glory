@@ -193,15 +193,6 @@ public class TrainerData : ScriptableObject
         }
     }
 
-    public void DebugTrainerData()
-    {
-        Debug.Log($"Trainer Name: {trainerName}");
-        Debug.Log($"Level: {level}");
-        Debug.Log($"Max HP: {maxHp}");
-        Debug.Log($"Current HP: {currentHp}");
-        Debug.Log($"Skills: Acrobatics ({acrobatics}), Athletics ({athletics}), Combat ({combat})");
-    }
-
     public void TestLevelUp()
     {
         level += 1;

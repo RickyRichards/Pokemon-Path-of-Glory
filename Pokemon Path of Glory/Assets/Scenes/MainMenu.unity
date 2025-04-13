@@ -2211,7 +2211,6 @@ MonoBehaviour:
   bgname: {fileID: 0}
   bgdesc: {fileID: 0}
   text: {fileID: 0}
-  newGame: CharacterSetup
   player: {fileID: 0}
   playerimg: {fileID: 0}
   apprentice: {fileID: 0}
@@ -2224,9 +2223,8 @@ MonoBehaviour:
   field3: {fileID: 0}
   field4: {fileID: 0}
   field5: {fileID: 0}
-  sprites: []
   img: {fileID: 0}
-  Female: 0
+  newGameScene: CharacterSetup
 --- !u!1 &1711260010
 GameObject:
   m_ObjectHideFlags: 0
