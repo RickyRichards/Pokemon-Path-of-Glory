@@ -26,6 +26,8 @@ public class HeritageMenu : MonoBehaviour
     private RectTransform exileButtonRect;
     private RectTransform scholaryButtonRect;
     private RectTransform occultButtonRect;
+    public RectTransform contentRectTransform; // The content panel that contains all the buttons
+
 
     private GameObject currentlyActivePanel = null;
     private GameObject currentlyActiveButton = null;
@@ -64,9 +66,12 @@ public class HeritageMenu : MonoBehaviour
         // Always restore all button positions before doing anything else
         RestoreAllButtonPositions();
 
+        // Close currently active panel if a new one is clicked
         if (currentlyActivePanel != null && !isSamePanel)
         {
             currentlyActivePanel.SetActive(false);
+            // Update content height when closing any active panel
+            UpdateContentHeight(true);  // Shrink content height when closing a panel
         }
 
         bool isActive = subOptionsPanel.activeSelf;
@@ -74,6 +79,9 @@ public class HeritageMenu : MonoBehaviour
 
         if (!isActive)
         {
+            // Update content height after opening the panel
+            UpdateContentHeight(false);  // Expand content height when opening a panel
+
             float moveAmount = subOptionsPanel.GetComponent<RectTransform>().rect.height;
             MoveButtonsBelow(button, moveAmount);
             currentlyActivePanel = subOptionsPanel;
@@ -102,6 +110,50 @@ public class HeritageMenu : MonoBehaviour
         {
             float originalY = originalYPositions[rect];
             rect.DOAnchorPosY(originalY - moveAmount, duration).SetEase(Ease.OutQuad);
+        }
+    }
+    private void UpdateContentHeight(bool isClosing)
+    {
+        // Force the layout to update before calculating sizes
+        Canvas.ForceUpdateCanvases();
+
+        float topY = float.MinValue;
+        float bottomY = float.MaxValue;
+
+        RectTransform[] allButtons = new RectTransform[] {
+            nobleButtonRect, merchantButtonRect, nomadicButtonRect,
+            exileButtonRect, scholaryButtonRect, occultButtonRect
+        };
+
+        // Calculate the total top and bottom positions of buttons
+        foreach (RectTransform btn in allButtons)
+        {
+            float btnTop = btn.anchoredPosition.y;
+            float btnBottom = btn.anchoredPosition.y - btn.rect.height;
+
+            if (btnTop > topY) topY = btnTop;
+            if (btnBottom < bottomY) bottomY = btnBottom;
+        }
+
+        // Calculate the total height for the content, add padding if necessary
+        float totalHeight = topY - bottomY + 100f; // Adjust padding if needed
+
+        // Update content size only if necessary
+        if (isClosing)
+        {
+            // Shrink content height when closing a panel
+            if (contentRectTransform.sizeDelta.y > totalHeight)
+            {
+                contentRectTransform.sizeDelta = new Vector2(contentRectTransform.sizeDelta.x, totalHeight);
+            }
+        }
+        else
+        {
+            // Expand content height when opening a panel
+            if (contentRectTransform.sizeDelta.y < totalHeight)
+            {
+                contentRectTransform.sizeDelta = new Vector2(contentRectTransform.sizeDelta.x, totalHeight);
+            }
         }
     }
 
